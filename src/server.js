@@ -12,6 +12,7 @@ const logger = morgan("dev");
 app.set("view engine", "pug");
 app.set("views", process.cwd() + "/src/views");
 app.use(logger);
+app.use(express.urlencoded({extended:true}));   //위치 중요(route middleware 전에 위치해야 적용가능)
 app.use("/", globalRouter);
 app.use("/users", userRouter);
 app.use("/videos", videoRouter);
