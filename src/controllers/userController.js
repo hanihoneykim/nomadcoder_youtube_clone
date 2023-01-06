@@ -41,6 +41,8 @@ export const postLogin = async(req,res) => {
     if(!ok){
         return res.status(400).render("login", {pageTitle, errorMessage:"Wrong Password"});
     }
+    req.session.loggedIn = true;
+    req.session.user = user;  //여기 user은 위의 const user 로 찾은 db 속 user
     res.redirect("/");
 }
 
