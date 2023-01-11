@@ -1,6 +1,7 @@
 import express from "express";
 import morgan from "morgan";
 import session from "express-session";
+import MongoStore from "connect-mongo";
 import rootRouter from "./routers/rootRouter";
 import userRouter from "./routers/userRouter";
 import videoRouter from "./routers/videoRouter";
@@ -16,9 +17,10 @@ app.use(express.urlencoded({extended:true}));   //위치 중요(route middleware
 
 app.use(
     session({
-        secret:"Hello",
-        resave:true,
-        saveUninitialized:true,
+        secret:process.env.COKKIE_SECRET,
+        resave:false,
+        saveUninitialized:false,
+        store: MongoStore.create({ mongoUrl: process.env.DB_URL  }),
     })
 );     //위치 중요(꼭 Router 전에 위치!!)
 
