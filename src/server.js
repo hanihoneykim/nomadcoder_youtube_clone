@@ -36,6 +36,7 @@ app.use((req, res, next) => {
 
 app.use(localsMiddleware);    //위치 정말 중요! session 다음 - router 전
 
+app.use("/static", express.static("assets"));
 app.use("/", rootRouter);
 app.use("/users", userRouter);
 app.use("/videos", videoRouter);
