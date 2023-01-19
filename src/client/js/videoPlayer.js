@@ -1,11 +1,14 @@
 const video = document.querySelector("video");
 const playBtn = document.getElementById("play");
+const playBtnIcon = playBtn.querySelector("i");
 const muteBtn = document.getElementById("mute");
+const muteBtnIcon = muteBtn.querySelector("i");
 const volumeRange = document.getElementById("volume");
 const currentTime = document.getElementById("currentTime");
 const totalTime = document.getElementById("totalTime");
 const timeline = document.getElementById("timeline");
 const fullScreenBtn = document.getElementById("fullScreen");
+const fullScreenIcon = fullScreenBtn.querySelector("i");
 const videoContainer = document.getElementById("videoContainer");
 const videoControls = document.getElementById("videoControls");
 
@@ -23,7 +26,7 @@ const handlePlayClick = (e) => {
         video.pause();
     }
     //else play the video
-    playBtn.innerText = video.paused ? "Play" : "Pause";
+    playBtnIcon.classList = video.paused ? "fas fa-play" : "fas fa-pause";
 } 
 
 
@@ -56,7 +59,7 @@ const handleVolumeChange = (event) => {
     }
 };
 
-const formatTime = (seconds) => new Date(seconds * 1000).toISOString().substring(11, 19);
+const formatTime = (seconds) => new Date(seconds * 1000).toISOString().substring(14, 19);
 
 const handleLoadedMetaData = () => {
     totalTime.innerText = formatTime(Math.floor(video.duration));
@@ -77,10 +80,10 @@ const handleFullScreen = () => {
     const fullscreen = document.fullscreenElement;
     if(fullscreen){
         document.exitFullscreen();
-        fullScreenBtn.innerText="Enter Fullscreen"
+        fullScreenIcon.classList = "fas fa-expand";
     } else {
         videoContainer.requestFullscreen();
-        fullScreenBtn.innerText="Exit Fullscreen"
+        fullScreenIcon.classList = "fas fa-compress";
     }
 }
 
@@ -120,7 +123,7 @@ const handleKeyboard = (e) => {
 playBtn.addEventListener("click", handlePlayClick);
 muteBtn.addEventListener("click", handleMuteClick);
 volumeRange.addEventListener("input", handleVolumeChange);
-video.addEventListener("loadedmetadata", handleLoadedMetaData);
+video.addEventListener("loadeddata", handleLoadedMetaData);
 video.addEventListener("timeupdate", handelTimeUpdate);
 timeline.addEventListener("input", handleTimelineChange);
 fullScreenBtn.addEventListener("click", handleFullScreen);
@@ -128,4 +131,4 @@ video.addEventListener("mousemove", handleMouseMove);
 video.addEventListener("mouseleave", handleMouseLeave);
 window.addEventListener("keyup", handleKeyboard);
 
-video.readyState ? handleLoadedMetaData() : video.addEventListener("loadedmetadata", handleLoadedMetaData);
+video.readyState ? handleLoadedMetaData() : video.addEventListener("loadeddata", handleLoadedMetaData);
